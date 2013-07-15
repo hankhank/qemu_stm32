@@ -30,17 +30,15 @@
 void stm32_hw_warn(const char *fmt, ...)
 {
     va_list ap;
-    CPUArchState *env;
     CPUState *cpu;
 
     va_start(ap, fmt);
     fprintf(stderr, "qemu stm32: hardware warning: ");
     vfprintf(stderr, fmt, ap);
     fprintf(stderr, "\n");
-    for(env = first_cpu; env != NULL; env = env->next_cpu) {
-        cpu = ENV_GET_CPU(env);
-        fprintf(stderr, "CPU #%d:\n", cpu_index(cpu));
-        cpu_dump_state(env, stderr, fprintf, 0);
+    for (cpu = first_cpu; cpu != NULL; cpu = cpu->next_cpu) {
+        fprintf(stderr, "CPU #%d:\n", cpu->cpu_index);
+        cpu_dump_state(cpu, stderr, fprintf, CPU_DUMP_FPU);
     }
     va_end(ap);
 }
