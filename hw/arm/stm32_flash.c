@@ -69,6 +69,7 @@ static int stm32_flash_init(SysBusDevice *dev)
 
     memory_region_init_io(
             &s->iomem,
+            OBJECT(s),
             &stm32_flash_ops,
             &s,
             "stm32_flash",

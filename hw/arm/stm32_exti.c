@@ -350,7 +350,7 @@ static int stm32_exti_init(SysBusDevice *dev)
 
     s->stm32_gpio = (Stm32Gpio **)s->stm32_gpio_prop;
 
-    memory_region_init_io(&s->iomem, &stm32_exti_ops, s,
+    memory_region_init_io(&s->iomem, OBJECT(s), &stm32_exti_ops, s,
             "exti", 0x03ff);
     sysbus_init_mmio(dev, &s->iomem);
 
