@@ -128,6 +128,7 @@ QTestState *qtest_init(const char *extra_args, int num_serial_ports)
     GString *extra_socket_args;
     const char *qemu_binary, *external_args, *qtest_log_path;
     pid_t pid;
+    int wait;
 
     qemu_binary = getenv("QTEST_QEMU_BINARY");
     g_assert(qemu_binary != NULL);
@@ -177,9 +178,9 @@ QTestState *qtest_init(const char *extra_args, int num_serial_ports)
                                   extra_socket_args->str,
                                   extra_args ?: "",
                                   external_args ?: "");
-        //printf("%s\n", command);
-        execlp("/bin/sh", "sh", "-c", command, NULL);
-        exit(1);
+        printf("Run this: %s\n", command);
+        //execlp("/bin/sh", "sh", "-c", command, NULL);
+        //exit(1);
     }
 
     socket_accept(&s->qtest_socket);
@@ -187,6 +188,7 @@ QTestState *qtest_init(const char *extra_args, int num_serial_ports)
     for(i = 0; i < num_serial_ports; i++) {
         socket_accept(&s->serial_port_sockets[i]);
     }
+    scanf("%d", &wait);
 
     s->rx = g_string_new("");
     s->pid_file = pid_file;
