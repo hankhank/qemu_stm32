@@ -10,3 +10,5 @@ obj-y += omap1.o omap2.o strongarm.o
 obj-$(CONFIG_ALLWINNER_A10) += allwinner-a10.o cubieboard.o
 
 obj-y += stm32.o stm32_rcc.o stm32_clktree.o stm32_p103.o stm32_maple.o
+obj-y += stm32_flashboard.o
+
